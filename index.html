@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krista Graham — Artist · Phoenix, AZ</title>
+<meta name="description" content="Krista Graham is a Phoenix-based painter working across watercolor, oil, acrylic, and mixed media — on canvas, on walls, and on skin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@100;200;300&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #131313;
+    --bg3: #1a1a1a;
+    --fg: #f0ece4;
+    --fg2: #a09890;
+    --fg3: #5a544e;
+    --accent: #c8704a;
+    --accent2: #7a4f6d;
+    --border: rgba(240,236,228,0.08);
+    --border2: rgba(240,236,228,0.15);
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Josefin Sans", sans-serif;
+    --name-font: "Jost", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--serif);
+    cursor: none;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  img { display: block; max-width: 100%; }
+
+  /* Custom cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: width .15s, height .15s, background .15s;
+    mix-blend-mode: difference;
+  }
+  .cursor.expand {
+    width: 44px; height: 44px;
+    background: var(--accent2);
+  }
+
+  @media (max-width: 900px), (pointer: coarse) {
+    body { cursor: auto; }
+    .cursor { display: none; }
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.75rem 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(10,10,10,.85) 30%, transparent);
+    transition: background .3s, padding .3s;
+  }
+
+  nav.scrolled {
+    background: rgba(10,10,10,.95);
+    backdrop-filter: blur(12px);
+    padding: 1.25rem 6vw;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--name-font);
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1.1rem;
+    color: var(--fg);
+    text-decoration: none;
+    letter-spacing: .02em;
+    transition: color .3s;
+  }
+  .nav-logo:hover { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--fg2);
+    text-decoration: none;
+    transition: color .3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent);
+    transition: width .3s;
+  }
+
+  .nav-links a:hover { color: var(--fg); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    cursor: none;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 6vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 35%;
+    z-index: 0;
+    filter: brightness(.55) saturate(.95);
+    transform: scale(1.05);
+    animation: slowZoom 20s ease-out forwards;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(to right, rgba(10,10,10,.88) 0%, rgba(10,10,10,.5) 50%, rgba(10,10,10,.3) 100%),
+      linear-gradient(to bottom, rgba(10,10,10,.4) 0%, rgba(10,10,10,.2) 50%, rgba(10,10,10,.7) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: clamp(10px, 1.1vw, 12px);
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp .9s .5s forwards;
+  }
+
+  .hero-name {
+    font-family: var(--name-font);
+    font-weight: 100;
+    font-style: normal;
+    font-size: clamp(3rem, 9vw, 9rem);
+    line-height: 1;
+    letter-spacing: -.01em;
+    color: var(--fg);
+    opacity: 0;
+    animation: fadeUp 1s .7s forwards;
+  }
+
+  .hero-tagline {
+    margin-top: 2.5rem;
+    font-size: clamp(1.05rem, 1.7vw, 1.4rem);
+    font-style: normal;
+    font-weight: 300;
+    color: var(--fg);
+    max-width: 600px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp .9s .95s forwards;
+  }
+
+  .hero-cta-row {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp .9s 1.2s forwards;
+  }
+
+  .btn {
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    padding: 1rem 2.2rem;
+    text-decoration: none;
+    cursor: none;
+    transition: all .3s;
+    border: 1px solid var(--border2);
+    color: var(--fg);
+    background: rgba(10,10,10,.3);
+    backdrop-filter: blur(6px);
+    display: inline-block;
+  }
+
+  .btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200,112,74,.08);
+  }
+
+  .btn.primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .btn.primary:hover {
+    background: transparent;
+    color: var(--accent);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    right: 6vw;
+    z-index: 2;
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--fg);
+    writing-mode: vertical-rl;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    opacity: 0;
+    animation: fadeUp .9s 1.4s forwards;
+  }
+
+  .hero-scroll::after {
+    content: "";
+    width: 1px;
+    height: 60px;
+    background: var(--accent);
+    animation: grow 1.5s 2s ease-out forwards;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+
+  /* Marquee */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 0;
+    background: var(--bg2);
+    position: relative;
+    z-index: 2;
+  }
+
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 28s linear infinite;
+  }
+
+  .marquee-track span {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: var(--fg2);
+    padding: 0 2.5rem;
+  }
+
+  .marquee-track span.dot {
+    color: var(--accent);
+    padding: 0;
+    letter-spacing: 0;
+  }
+
+  /* Section headers */
+  .section-header {
+    padding: 6rem 6vw 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header.no-border { border-bottom: none; padding-bottom: 3rem; }
+
+  .section-eyebrow {
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: 10px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: normal;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    color: var(--fg);
+    margin-bottom: 1.5rem;
+    letter-spacing: -.02em;
+  }
+
+  .section-sub {
+    font-size: 1.1rem;
+    font-style: normal;
+    font-weight: 300;
+    color: var(--fg2);
+    max-width: 620px;
+    line-height: 1.7;
+  }
+
+  /* Filter bar */
+  .filter-section {
+    padding: 2.5rem 6vw;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .filter-label {
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: 10px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--fg2);
+    margin-right: 1rem;
+  }
+
+  .filter-btn {
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    padding: .45rem 1.1rem;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--fg2);
+    cursor: none;
+    transition: all .25s;
+    border-radius: 0;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200,112,74,.06);
+  }
+
+  /* Gallery */
+  .gallery {
+    padding: 3rem 6vw 7rem;
+    columns: 3 320px;
+    column-gap: 1.2rem;
+  }
+
+  .work-item {
+    break-inside: avoid;
+    margin-bottom: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .6s, transform .6s;
+  }
+
+  .work-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .work-item img {
+    width: 100%;
+    display: block;
+    transition: transform .7s cubic-bezier(.25,.46,.45,.94);
+    filter: saturate(.92);
+  }
+
+  .work-item:hover img {
+    transform: scale(1.04);
+    filter: saturate(1.1);
+  }
+
+  .work-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,.92) 0%, transparent 55%);
+    opacity: 0;
+    transition: opacity .4s;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+  }
+
+  .work-item:hover .work-overlay { opacity: 1; }
+
+  .work-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--fg);
+    margin-bottom: .3rem;
+    letter-spacing: -.01em;
+  }
+
+  .work-meta {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .work-series {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 9px;
+    font-weight: 200;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    padding: .25rem .7rem;
+    border: 1px solid var(--border2);
+    color: var(--fg2);
+    margin-bottom: .6rem;
+    background: rgba(10,10,10,.6);
+  }
+
+  /* Availability badge on work cards */
+  .work-status {
+    position: absolute;
+    top: 0.9rem; left: 0.9rem;
+    z-index: 3;
+    font-family: var(--sans);
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    padding: .3rem .7rem;
+    background: rgba(10,10,10,.72);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--border2);
+    color: var(--fg);
+  }
+  .work-status.status-forsale { color: var(--accent); border-color: var(--accent); }
+  .work-status.status-sold    { color: var(--fg3); border-color: var(--fg3); }
+  .work-status.status-notforsale { color: var(--fg3); border-color: var(--fg3); }
+  .work-status.status-stolen  { color: #d98a6a; border-color: #d98a6a; }
+
+  .lightbox-detail {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 200;
+    letter-spacing: .12em;
+    color: var(--fg2);
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+    text-transform: none;
+  }
+  .lightbox-status {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    padding: .35rem .8rem;
+    border: 1px solid var(--border2);
+    margin-bottom: 1.6rem;
+    color: var(--fg);
+  }
+  .lightbox-status.status-forsale { color: var(--accent); border-color: var(--accent); }
+  .lightbox-status.status-sold    { color: var(--fg3); border-color: var(--fg3); }
+  .lightbox-status.status-notforsale { color: var(--fg3); border-color: var(--fg3); }
+  .lightbox-status.status-stolen  { color: #d98a6a; border-color: #d98a6a; }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(10,10,10,.97);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .4s;
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+  }
+
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .lightbox-inner {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .lightbox-img {
+    max-height: 85vh;
+    max-width: 65vw;
+    object-fit: contain;
+    box-shadow: 0 40px 100px rgba(0,0,0,.8);
+  }
+
+  .lightbox-info {
+    min-width: 240px;
+    max-width: 320px;
+  }
+
+  .lightbox-series {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .lightbox-title {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 1.2rem;
+    color: var(--fg);
+    letter-spacing: -.02em;
+  }
+
+  .lightbox-medium {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 200;
+    letter-spacing: .18em;
+    color: var(--fg2);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  .lightbox-inquire {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--fg);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: .35rem;
+    transition: color .3s;
+    display: inline-block;
+  }
+
+  .lightbox-inquire:hover { color: var(--accent); }
+
+  .lightbox-close {
+    position: fixed;
+    top: 2rem;
+    right: 2.5rem;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 200;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--fg);
+    background: none;
+    border: none;
+    cursor: none;
+    transition: color .3s;
+    z-index: 201;
+  }
+
+  .lightbox-close:hover { color: var(--accent); }
+
+  /* About */
+  .about {
+    padding: 8rem 6vw;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 6rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .about-heading {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+    color: var(--fg);
+    letter-spacing: -.02em;
+  }
+
+  .about-body {
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--fg2);
+    font-weight: 300;
+  }
+
+  .about-body p + p { margin-top: 1.5rem; }
+
+  .about-body em {
+    font-style: normal;
+    color: var(--fg);
+  }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .stat {
+    border-left: 1px solid var(--accent);
+    padding-left: 1.8rem;
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1;
+    color: var(--fg);
+    margin-bottom: .5rem;
+    font-style: normal;
+  }
+
+  .stat-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  /* Murals section - horizontal scroll feel */
+  .murals-section {
+    padding: 6rem 0 8rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .murals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 2rem;
+    padding: 0 6vw;
+  }
+
+  .mural-card {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+
+  .mural-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    transition: transform .7s;
+  }
+
+  .mural-card:hover img { transform: scale(1.04); }
+
+  .mural-info {
+    padding: 1.5rem 0;
+  }
+
+  .mural-title {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--fg);
+    margin-bottom: .3rem;
+  }
+
+  .mural-meta {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  /* Tattoo Portfolio Gallery */
+  .tattoo-portfolio {
+    margin-top: 5rem;
+    padding-top: 5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .portfolio-eyebrow {
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2.5rem;
+  }
+
+  .tattoo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .tattoo-piece {
+    margin: 0;
+  }
+
+  .tattoo-img-wrap {
+    width: 100%;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    background: var(--bg2);
+    margin-bottom: 1rem;
+  }
+
+  .tattoo-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+
+  .tattoo-piece:hover .tattoo-img-wrap img {
+    transform: scale(1.02);
+  }
+
+  .tattoo-piece figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .piece-name {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--fg);
+  }
+
+  .piece-style {
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: 10px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .portfolio-note {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--fg2);
+    font-style: italic;
+    font-weight: 300;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    max-width: 640px;
+  }
+
+  @media (max-width: 700px) {
+    .tattoo-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+
+  /* Tattoo Section - Clean */
+  .tattoo-deep {
+    padding: 7rem 6vw 7rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .tattoo-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .tattoo-intro {
+    margin-bottom: 5rem;
+  }
+
+  .tattoo-intro .section-sub {
+    margin-top: 1.5rem;
+  }
+
+  .credentials-line {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .credentials-line span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .credentials-line span::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  .service {
+    margin-top: 5rem;
+    padding-top: 5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .service-num {
+    font-family: var(--sans);
+    font-weight: 200;
+    font-size: 11px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+
+  .service-name {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    line-height: 1.15;
+    color: var(--fg);
+    margin-bottom: 1.5rem;
+    letter-spacing: -.01em;
+  }
+
+  .service-lead {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--fg2);
+    font-weight: 300;
+    max-width: 640px;
+    margin-bottom: 3.5rem;
+  }
+
+  .rate-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 3rem 0;
+  }
+
+  .rate-list li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+
+  .rate-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    color: var(--fg);
+    font-weight: 400;
+  }
+
+  .rate-name small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--fg2);
+    margin-top: 0.4rem;
+  }
+
+  .rate-amount {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--accent);
+    font-weight: 400;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .terms-note {
+    font-size: 0.95rem;
+    line-height: 1.85;
+    color: var(--fg2);
+    font-weight: 300;
+    max-width: 640px;
+  }
+
+  .terms-note strong {
+    color: var(--fg);
+    font-weight: 500;
+  }
+
+  .terms-note p + p { margin-top: 1rem; }
+
+  .tattoo-bottom {
+    margin-top: 6rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .tattoo-bottom h3 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    color: var(--fg);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .tattoo-bottom p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--fg2);
+    font-weight: 300;
+    max-width: 540px;
+    margin: 0 auto 2rem;
+  }
+
+  @media (max-width: 700px) {
+    .tattoo-deep { padding: 5rem 5vw; }
+    .service { margin-top: 4rem; padding-top: 4rem; }
+    .rate-list li { grid-template-columns: 1fr; gap: 0.5rem; }
+    .rate-amount { text-align: left; font-size: 1.15rem; }
+    .credentials-line { gap: 1rem; font-size: 10px; }
+  }
+
+  /* Prints */
+  .prints-section {
+    padding: 6rem 6vw 8rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    text-align: center;
+  }
+
+  .prints-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .prints-section h2 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    color: var(--fg);
+  }
+
+  .prints-section p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: var(--fg2);
+    font-weight: 300;
+    font-style: normal;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Commissions CTA */
+  .commission-section {
+    padding: 8rem 6vw;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .commission-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(200,112,74,.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(122,79,109,.12) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .commission-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .commission-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+    color: var(--fg);
+  }
+
+  .commission-body {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--fg2);
+    font-weight: 300;
+    font-style: normal;
+    margin-bottom: 2rem;
+  }
+
+  .commission-price {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 3rem;
+  }
+
+  /* Exhibitions */
+  .exhibitions {
+    padding: 6rem 6vw 8rem;
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+  }
+
+  .exhibitions-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .exhibit-list {
+    list-style: none;
+  }
+
+  .exhibit-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: baseline;
+  }
+
+  .exhibit-year {
+    font-family: var(--serif);
+    font-style: normal;
+    font-size: 1.3rem;
+    color: var(--accent);
+  }
+
+  .exhibit-detail {
+    font-size: 1.05rem;
+    color: var(--fg2);
+    line-height: 1.5;
+  }
+
+  .exhibit-detail strong {
+    color: var(--fg);
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .exhibit-placeholder {
+    font-style: normal;
+    color: var(--fg3);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Newsletter */
+  .newsletter {
+    padding: 6rem 6vw;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .newsletter-inner {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .newsletter h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-style: normal;
+    font-weight: 300;
+    color: var(--fg);
+    margin-bottom: 1rem;
+  }
+
+  .newsletter p {
+    font-size: 1.05rem;
+    color: var(--fg2);
+    font-style: normal;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border2);
+    transition: border-color .3s;
+  }
+
+  .newsletter-form:focus-within { border-color: var(--accent); }
+
+  .newsletter-form input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--fg);
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-style: normal;
+    padding: 1rem 0;
+    outline: none;
+  }
+
+  .newsletter-form input::placeholder {
+    color: var(--fg3);
+    font-style: normal;
+  }
+
+  .newsletter-form button {
+    background: none;
+    border: none;
+    color: var(--fg);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    padding: 0 1.5rem;
+    cursor: none;
+    transition: color .3s;
+  }
+
+  .newsletter-form button:hover { color: var(--accent); }
+
+  /* Contact */
+  .contact {
+    padding: 8rem 6vw;
+    border-top: 1px solid var(--border);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .contact-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--fg);
+    letter-spacing: -.02em;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+  }
+
+  .contact-label {
+    font-family: var(--sans);
+    font-size: 9px;
+    font-weight: 200;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  .contact-value {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--fg);
+    text-decoration: none;
+    font-style: normal;
+    transition: color .3s;
+  }
+
+  .contact-value:hover { color: var(--accent); }
+
+  /* Footer */
+  footer {
+    padding: 3rem 6vw;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-name {
+    font-family: var(--name-font);
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1rem;
+    color: var(--fg);
+    letter-spacing: .02em;
+  }
+
+  footer p {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 200;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--fg2);
+  }
+
+  
+  .name-mono {
+    font-family: var(--name-font);
+    font-weight: 200;
+    letter-spacing: 0;
+    color: var(--fg);
+    font-size: 1em;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes grow {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @keyframes slowZoom {
+    from { transform: scale(1.15); }
+    to   { transform: scale(1.02); }
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 1.25rem 5vw; }
+    nav.scrolled { padding: 1rem 5vw; }
+    .hero { padding: 0 5vw; }
+    .hero-scroll { display: none; }
+    .nav-links { display: none; }
+    .gallery { columns: 2 160px; column-gap: .75rem; padding: 2rem 5vw 4rem; }
+    .about, .tattoo-section, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .exhibitions-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .lightbox-inner { flex-direction: column; gap: 2rem; }
+    .lightbox-img { max-width: 85vw; max-height: 55vh; }
+    .lightbox-title { font-size: 2rem; }
+    .section-header { padding: 4rem 5vw 1.5rem; }
+    .filter-section { padding: 1.5rem 5vw; }
+    .marquee-track span { padding: 0 1.5rem; }
+    .hero-cta-row { flex-direction: column; }
+    .btn { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<nav id="nav">
+  <a class="nav-logo" href="#">Krista Graham</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#murals">Murals</a></li>
+    <li><a href="#tattoo">Tattoo</a></li>
+    <li><a href="#prints">Prints</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Inquire</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Phoenix, Arizona &nbsp;&mdash;&nbsp; Watercolor &middot; Oil &middot; Acrylic &middot; Mixed Media</p>
+    <h1 class="hero-name">Krista<br>Graham</h1>
+    <p class="hero-tagline">I&rsquo;m Krista, and I create art.</p>
+    <div class="hero-cta-row">
+      <a href="#work" class="btn primary">View the Work</a>
+      <a href="#contact" class="btn">Commission a Piece</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Originals Available</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Limited Edition Prints</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Commissions Open</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Murals</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Tattoo Design</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Phoenix, Arizona</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Originals Available</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Limited Edition Prints</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Commissions Open</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Murals</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Tattoo Design</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+    <span>Phoenix, Arizona</span><span class="dot">&nbsp;&bull;&nbsp;</span>
+  </div>
+</div>
+
+<!-- Gallery -->
+<section id="work">
+  <div class="section-header no-border">
+    <p class="section-eyebrow">Selected Works</p>
+    <h2 class="section-title">The Work</h2>
+    <p class="section-sub">Original paintings across four series. Each piece is one of a kind. Filter by series or view all work below.</p>
+  </div>
+
+  <div class="filter-section">
+    <span class="filter-label">Series</span>
+    <button class="filter-btn active" data-filter="all">All Work</button>
+    <button class="filter-btn" data-filter="Mixed Media">Mixed Media</button>
+    <button class="filter-btn" data-filter="Portraits">Portraits</button>
+    <button class="filter-btn" data-filter="Figures">Figures</button>
+  </div>
+  <div class="gallery" id="galleryGrid"></div>
+</section>
+
+<!-- Murals -->
+<section id="murals" class="murals-section">
+  <div class="section-header no-border" style="padding-top:0;padding-bottom:2rem;">
+    <p class="section-eyebrow">At Scale</p>
+    <h2 class="section-title">Murals</h2>
+    <p class="section-sub">Wall work for residential, hospitality, and commercial spaces across the Phoenix metro. Krista handles every project from concept to completion. Inquire for availability and pricing.</p>
+  </div>
+  <div class="murals-grid" id="muralsGrid"></div>
+</section>
+
+<!-- Tattoo -->
+<section id="tattoo" class="tattoo-deep">
+  <div class="tattoo-container">
+
+    <div class="tattoo-intro">
+      <p class="section-eyebrow">On Skin</p>
+      <h2 class="section-title">Tattoo Work</h2>
+      <p class="section-sub">Krista has tattooed over 1,000 pieces. Skin is one of her primary mediums &mdash; not a side practice. She offers two services: full custom tattoo execution, and design-only artwork delivered for execution by another artist.</p>
+      <div class="credentials-line">
+        <span>1,000+ Pieces</span>
+        <span>BBP Certified</span>
+        <span>OSHA Certified</span>
+        <span>By Appointment</span>
+      </div>
+    </div>
+
+    <div class="tattoo-portfolio">
+      <p class="portfolio-eyebrow">Selected Work</p>
+      <div class="tattoo-grid">
+      <figure class="tattoo-piece">
+        <div class="tattoo-img-wrap">
+          <img src="images/img-001.jpg" alt="The Lovers tattoo by Krista Graham" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="piece-name">The Lovers</span>
+          <span class="piece-style">Fine line illustrative</span>
+        </figcaption>
+      </figure>
+      <figure class="tattoo-piece">
+        <div class="tattoo-img-wrap">
+          <img src="images/img-002.jpg" alt="Crane tattoo by Krista Graham" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="piece-name">Crane</span>
+          <span class="piece-style">Minimal linework</span>
+        </figcaption>
+      </figure>
+      <figure class="tattoo-piece">
+        <div class="tattoo-img-wrap">
+          <img src="images/img-003.jpg" alt="Pocket Watch &amp; Lilies tattoo by Krista Graham" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="piece-name">Pocket Watch &amp; Lilies</span>
+          <span class="piece-style">Color realism</span>
+        </figcaption>
+      </figure>
+      <figure class="tattoo-piece">
+        <div class="tattoo-img-wrap">
+          <img src="images/img-004.jpg" alt="Wave Sleeve tattoo by Krista Graham" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="piece-name">Wave Sleeve</span>
+          <span class="piece-style">Japanese-influenced color</span>
+        </figcaption>
+      </figure>
+      <figure class="tattoo-piece">
+        <div class="tattoo-img-wrap">
+          <img src="images/img-005.jpg" alt="Watercolor Figure tattoo by Krista Graham" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="piece-name">Watercolor Figure</span>
+          <span class="piece-style">Painterly color</span>
+        </figcaption>
+      </figure>
+      <figure class="tattoo-piece">
+        <div class="tattoo-img-wrap">
+          <img src="images/img-006.jpg" alt="Pin-up Nurse tattoo by Krista Graham" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="piece-name">Pin-up Nurse</span>
+          <span class="piece-style">Large-scale figurative</span>
+        </figcaption>
+      </figure>
+      <figure class="tattoo-piece">
+        <div class="tattoo-img-wrap">
+          <img src="images/img-007.jpg" alt="Mermaid tattoo by Krista Graham" loading="lazy">
+        </div>
+        <figcaption>
+          <span class="piece-name">Mermaid</span>
+          <span class="piece-style">Full color sleeve</span>
+        </figcaption>
+      </figure>
+      </div>
+      <p class="portfolio-note">Additional figurative work, including large-scale and nude studies, available for serious inquiries by request.</p>
+    </div>
+
+    <div class="service">
+      <p class="service-num">01 &mdash; Execution</p>
+      <h3 class="service-name">Custom Tattoo Sessions</h3>
+      <p class="service-lead">Krista designs and tattoos the piece herself. Her work in skin tends toward fine line, figurative portraiture, and original illustrative compositions. Sessions are by appointment with location confirmed at booking.</p>
+
+      <ul class="rate-list">
+        <li>
+          <div class="rate-name">Hourly Rate</div>
+          <div class="rate-amount">$200</div>
+        </li>
+        <li>
+          <div class="rate-name">Studio Minimum<small>Smallest piece</small></div>
+          <div class="rate-amount">$150</div>
+        </li>
+        <li>
+          <div class="rate-name">Half Day<small>Up to 3 hours</small></div>
+          <div class="rate-amount">$600</div>
+        </li>
+        <li>
+          <div class="rate-name">Full Day<small>Up to 6 hours</small></div>
+          <div class="rate-amount">$1,100</div>
+        </li>
+        <li>
+          <div class="rate-name">Booking Deposit<small>Non-refundable, applied to total</small></div>
+          <div class="rate-amount">$150</div>
+        </li>
+      </ul>
+
+      <div class="terms-note">
+        <p><strong>Booking.</strong> The deposit reserves your session. Reschedule with 48+ hours notice; inside 48 hours the deposit is forfeit. No-shows forfeit the deposit and require a new one before any future booking.</p>
+        <p><strong>Payment.</strong> Balance is due in full at the end of the session. Cash, Venmo, or Zelle. Multi-session pieces are quoted individually before the first session begins.</p>
+      </div>
+    </div>
+
+    <div class="service">
+      <p class="service-num">02 &mdash; Design Only</p>
+      <h3 class="service-name">Tattoo Design Commission</h3>
+      <p class="service-lead">Krista creates the artwork; you take it to the tattoo artist of your choice. You receive a high-resolution digital file suitable for any professional tattoo artist to work from.</p>
+
+      <ul class="rate-list">
+        <li>
+          <div class="rate-name">Simple<small>Single subject, line-based</small></div>
+          <div class="rate-amount">$300</div>
+        </li>
+        <li>
+          <div class="rate-name">Standard<small>Detailed figure or portrait</small></div>
+          <div class="rate-amount">$500&ndash;$700</div>
+        </li>
+        <li>
+          <div class="rate-name">Complex<small>Multi-figure or full composition</small></div>
+          <div class="rate-amount">$800&ndash;$1,200</div>
+        </li>
+        <li>
+          <div class="rate-name">Booking Deposit<small>50%, non-refundable, applied to total</small></div>
+          <div class="rate-amount">50%</div>
+        </li>
+      </ul>
+
+      <div class="terms-note">
+        <p><strong>What\'s included.</strong> One round of substantive revisions in the base fee. Additional rounds at $75 each. Final delivery is a high-resolution digital file (PNG and PDF) sized for tattoo reference.</p>
+        <p><strong>Rights &amp; turnaround.</strong> Personal-use rights for the tattoo. Krista retains rights to display the design as part of her portfolio. Typical turnaround is 2&ndash;4 weeks from deposit to delivery.</p>
+      </div>
+    </div>
+
+    <div class="tattoo-bottom">
+      <h3>Ready to book?</h3>
+      <p>Reach out with what you have in mind &mdash; reference images, a written description, or just a feeling. Krista responds within 3 business days with a quote, timeline, and next steps.</p>
+      <a href="mailto:kgface@gmail.com?subject=Tattoo%20Inquiry" class="btn primary">Inquire About Tattoo Work</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Prints -->
+<section id="prints" class="prints-section">
+  <div class="prints-inner">
+    <p class="section-eyebrow">Take a piece home</p>
+    <h2>Limited Edition Prints</h2>
+    <p>Selected works available as archival giclée prints. Numbered, signed, and printed on museum-grade paper. Editions are small by design &mdash; when they&rsquo;re gone, they&rsquo;re gone.</p>
+    <a href="#contact" class="btn primary">Shop Prints</a>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div>
+    <p class="section-eyebrow">About the Artist</p>
+    <h2 class="about-heading">Women painted outside the roles built for them.</h2>
+    <div class="about-body">
+      <p>My name is <span class="name-mono">Krista Graham</span>. I&rsquo;m a painter based in Phoenix, Arizona. I work across watercolor, oil, acrylic, and mixed media &mdash; on canvas, on walls, and on skin. My practice moves fluidly between surfaces. Glass, resin, and found materials enter the work when paint alone isn&rsquo;t enough.</p>
+      <p>My subjects are women. Not women as symbols. Not women as archetypes or icons or figures to be decoded. Women painted free of the roles that have always said more about the culture than about her.</p>
+      <p>I&rsquo;m drawn to the moment a face stops performing and just exists. To color that feels like an emotional state before it resolves into a description. That gap is where every painting starts.</p>
+    </div>
+  </div>
+  <div class="about-right">
+    <div class="stat">
+      <div class="stat-num">~200</div>
+      <div class="stat-label">Original Works</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Distinct Series</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6</div>
+      <div class="stat-label">Mediums &amp; Materials</div>
+    </div>
+  </div>
+</section>
+
+<!-- Commission CTA -->
+<section class="commission-section">
+  <div class="commission-inner">
+    <p class="section-eyebrow">Commissions Open</p>
+    <h2 class="commission-heading">Something painted<br>on your terms.</h2>
+    <p class="commission-body">Krista accepts a limited number of commissions each year. Portraits that don&rsquo;t flatter. Figures that don&rsquo;t perform. Subjects painted the way they actually feel.</p>
+    <p class="commission-price">Commissions begin at $3,000 &nbsp;&middot;&nbsp; 50% deposit to reserve</p>
+    <a href="#contact" class="btn primary">Start a Conversation</a>
+  </div>
+</section>
+
+<!-- Exhibitions -->
+<section class="exhibitions">
+  <div class="section-header no-border" style="padding:0 0 3rem; border:none;">
+    <p class="section-eyebrow">Recognition</p>
+    <h2 class="section-title">Exhibitions &amp; Press</h2>
+  </div>
+  <div class="exhibitions-grid">
+    <div>
+      <p class="exhibit-placeholder">Krista is currently represented in private collections across Arizona and actively seeking gallery representation and group exhibition opportunities in the Phoenix metro area.</p>
+    </div>
+    <ul class="exhibit-list">
+      <li class="exhibit-item">
+        <span class="exhibit-year">Coming</span>
+        <span class="exhibit-detail"><strong>First gallery show</strong><br>Phoenix metro &mdash; details announced via newsletter</span>
+      </li>
+      <li class="exhibit-item">
+        <span class="exhibit-year">Open</span>
+        <span class="exhibit-detail"><strong>Studio visits by appointment</strong><br>Phoenix &mdash; contact for scheduling</span>
+      </li>
+      <li class="exhibit-item">
+        <span class="exhibit-year">Press</span>
+        <span class="exhibit-detail"><strong>Inquiries welcome</strong><br>Interviews, features, and editorial collaboration</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+  <div class="newsletter-inner">
+    <p class="section-eyebrow">First to know</p>
+    <h2>Studio notes, new work, and occasional looks behind the canvas.</h2>
+    <p>No noise. No daily emails. Just Krista, when there&rsquo;s something worth sharing.</p>
+    <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+      <input type="email" placeholder="your@email.com" required>
+      <button type="submit">Join</button>
+    </form>
+    <p id="newsletterMsg" style="margin-top:1.5rem; font-size:.9rem; color:var(--accent); opacity:0; transition:opacity .4s;">Thank you &mdash; you&rsquo;re on the list.</p>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <h2 class="contact-heading">Let&rsquo;s talk<br>about the work.</h2>
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="contact-label">Email</span>
+        <a class="contact-value" href="mailto:kgface@gmail.com">kgface@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Phone &amp; Text</span>
+        <a class="contact-value" href="tel:+16026890595">602-689-0595</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Instagram</span>
+        <a class="contact-value" href="https://instagram.com/muffinmouth" target="_blank" rel="noopener">@muffinmouth</a>
+      </div>
+      <div class="contact-item">
+        <span class="contact-label">Studio</span>
+        <span class="contact-value">Phoenix, Arizona &mdash; by appointment</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p class="footer-name">Krista Graham</p>
+  <p>&copy; 2025 All Rights Reserved &nbsp;&middot;&nbsp; Phoenix, Arizona</p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">Close &nbsp;&times;</button>
+  <div class="lightbox-inner">
+    <img class="lightbox-img" id="lbImg" src="" alt="">
+    <div class="lightbox-info">
+      <p class="lightbox-series" id="lbSeries"></p>
+      <h3 class="lightbox-title" id="lbTitle"></h3>
+      <p class="lightbox-medium" id="lbMedium"></p>
+      <p class="lightbox-detail" id="lbDetail"></p>
+      <span class="lightbox-status" id="lbStatus"></span>
+      <a href="mailto:kgface@gmail.com" class="lightbox-inquire" id="lbInquire">Inquire About This Work</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const HERO_IMG = "images/img-008.jpg";
+
+const WORKS = [
+  { title: "Red Hair", series: "Figures", medium: "Oil, acrylic, and resin on canvas board", status: "Stolen", src: "images/work-01-red-hair.jpg" },
+  { title: "Smoke", series: "Portraits", medium: "Oil and resin on canvas board", status: "For Sale", src: "images/work-02-smoke.jpg" },
+  { title: "Cigarette", series: "Portraits", medium: "Acrylic", status: "For Sale", note: "Framed in a canvas frame. The cigarette\u2019s cherry glows red under UV light.", src: "images/work-03-cigarette.jpg" },
+  { title: "Snail's Pace", series: "Figures", medium: "Glass shards and acrylic resin on canvas", status: "For Sale", dimensions: "[[ADD DIMENSIONS]]", src: "images/work-04-snail-s-pace.jpg" },
+  { title: "Hong Kong", series: "Portraits", medium: "Acrylic on canvas", status: "Sold", note: "Custom commissioned piece.", src: "images/work-05-hong-kong.jpg" },
+  { title: "Spectrum", series: "Portraits", medium: "Jelly pen and ink on art paper", status: "For Sale", src: "images/work-06-spectrum.jpg" },
+  { title: "Moth Girl", series: "Mixed Media", medium: "Oil on canvas", src: "images/work-07-moth-girl.jpg" },
+  { title: "Miss Mosh", series: "Mixed Media", medium: "Oil on canvas", status: "Not for Sale", src: "images/work-08-miss-mosh.jpg" },
+  { title: "Showgirls", series: "Figures", medium: "Acrylic on canvas", src: "images/work-09-showgirls.jpg" },
+  { title: "Abstraction", series: "Mixed Media", medium: "Oil on canvas", src: "images/work-10-abstraction.jpg" },
+  { title: "Profile in Blue", series: "Portraits", medium: "Oil on canvas", src: "images/work-11-profile-in-blue.jpg" },
+  { title: "Three Faces", series: "Portraits", medium: "Oil on canvas", src: "images/work-12-three-faces.jpg" },
+  { title: "Sketchbook Study", series: "Portraits", medium: "Gouache on paper", src: "images/work-13-sketchbook-study.jpg" },
+  { title: "Aviary", series: "Figures", medium: "Oil on canvas", src: "images/work-14-aviary.jpg" },
+  { title: "The Chorus", series: "Portraits", medium: "Oil on canvas", src: "images/work-15-the-chorus.jpg" },
+  { title: "Garden", series: "Portraits", medium: "Acrylic on canvas", src: "images/work-16-garden.jpg" },
+  { title: "Little Birds", series: "Figures", medium: "Oil on canvas", src: "images/work-17-little-birds.jpg" },
+];
+
+const MURALS = [
+  { title: "Desert Wall", medium: "Interior mural — acrylic on wall", src: "images/mural-01-desert-wall.jpg" },
+  { title: "Orchid", medium: "Acrylic mural — salon interior", src: "images/mural-02-orchid.jpg" },
+  { title: "Seated Figures", medium: "Ink and acrylic mural — interior", src: "images/mural-03-seated-figures.jpg" },
+  { title: "Muffin Mouth", medium: "Spray and acrylic mural — exterior", src: "images/mural-04-muffin-mouth.jpg" },
+  { title: "Faces Wall", medium: "Spray and acrylic mural — exterior block wall", src: "images/mural-05-faces-wall.jpg" },
+  { title: "Box Truck", medium: "Spray mural — vehicle panel", src: "images/mural-06-box-truck.jpg" },
+  { title: "Prickly Pear", medium: "Acrylic mural — interior", src: "images/mural-07-prickly-pear.jpg" },
+];
+
+
+
+// Set hero bg
+document.getElementById("heroBg").style.backgroundImage = "url('" + HERO_IMG + "')";
+
+// Cursor
+const cursor = document.getElementById("cursor");
+let cursorVisible = false;
+document.addEventListener("mousemove", e => {
+  if (!cursorVisible) { cursor.style.opacity = "1"; cursorVisible = true; }
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+document.addEventListener("mouseleave", () => { cursor.style.opacity = "0"; cursorVisible = false; });
+
+function attachCursorTargets() {
+  document.querySelectorAll("a, button, .work-item, .mural-card, input").forEach(el => {
+    if (el.dataset.cursorBound) return;
+    el.dataset.cursorBound = "1";
+    el.addEventListener("mouseenter", () => cursor.classList.add("expand"));
+    el.addEventListener("mouseleave", () => cursor.classList.remove("expand"));
+  });
+}
+
+// Nav scroll
+const nav = document.getElementById("nav");
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 80) nav.classList.add("scrolled");
+  else nav.classList.remove("scrolled");
+});
+
+// Build gallery
+const grid = document.getElementById("galleryGrid");
+
+function buildGallery(filter) {
+  grid.innerHTML = "";
+  const filtered = filter === "all" ? WORKS : WORKS.filter(w => w.series === filter);
+  filtered.forEach((work, i) => {
+    const div = document.createElement("div");
+    div.className = "work-item";
+    div.dataset.series = work.series;
+    var statusBadge = work.status
+      ? '<span class="work-status status-' + work.status.replace(/[^a-z]/gi,'').toLowerCase() + '">' + work.status + '</span>'
+      : '';
+    div.innerHTML =
+      '<img src="' + work.src + '" alt="' + work.title + '" loading="lazy">' +
+      statusBadge +
+      '<div class="work-overlay">' +
+        '<span class="work-series">' + work.series + '</span>' +
+        '<div class="work-title">' + work.title + '</div>' +
+        '<div class="work-meta">' + work.medium + '</div>' +
+      '</div>';
+    div.addEventListener("click", () => openLightbox(work));
+    grid.appendChild(div);
+    setTimeout(() => div.classList.add("visible"), i * 50 + 100);
+  });
+  attachCursorTargets();
+}
+
+buildGallery("all");
+
+// Build murals
+const muralsGrid = document.getElementById("muralsGrid");
+MURALS.forEach(m => {
+  const div = document.createElement("div");
+  div.className = "mural-card";
+  div.innerHTML =
+    '<img src="' + m.src + '" alt="' + m.title + '" loading="lazy">' +
+    '<div class="mural-info">' +
+      '<div class="mural-title">' + m.title + '</div>' +
+      '<div class="mural-meta">' + m.medium + '</div>' +
+    '</div>';
+  div.addEventListener("click", () => openLightbox({title: m.title, medium: m.medium, series: "Murals", src: m.src}));
+  muralsGrid.appendChild(div);
+});
+
+// Filter buttons
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    buildGallery(btn.dataset.filter);
+  });
+});
+
+// Lightbox
+const lb = document.getElementById("lightbox");
+const lbImg = document.getElementById("lbImg");
+const lbTitle = document.getElementById("lbTitle");
+const lbMedium = document.getElementById("lbMedium");
+const lbSeries = document.getElementById("lbSeries");
+
+function openLightbox(work) {
+  lbImg.src = work.src;
+  lbTitle.textContent = work.title;
+  lbMedium.textContent = work.medium;
+  lbSeries.textContent = work.series;
+
+  var detailEl = document.getElementById("lbDetail");
+  var bits = [];
+  if (work.dimensions) bits.push(work.dimensions);
+  if (work.note) bits.push(work.note);
+  detailEl.textContent = bits.join(" \u00b7 ");
+  detailEl.style.display = bits.length ? "block" : "none";
+
+  var statusEl = document.getElementById("lbStatus");
+  var inquireEl = document.getElementById("lbInquire");
+  if (work.status) {
+    statusEl.textContent = work.status;
+    statusEl.className = "lightbox-status status-" + work.status.replace(/[^a-z]/gi,'').toLowerCase();
+    statusEl.style.display = "inline-block";
+    // Only offer purchase inquiry when the piece is actually available
+    inquireEl.style.display = (work.status.toLowerCase() === "for sale") ? "inline-block" : "none";
+  } else {
+    statusEl.style.display = "none";
+    inquireEl.style.display = "inline-block";
+  }
+
+  lb.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+document.getElementById("lbClose").addEventListener("click", closeLightbox);
+lb.addEventListener("click", e => { if (e.target === lb) closeLightbox(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
+
+function closeLightbox() {
+  lb.classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// Newsletter (stub - needs real integration)
+function handleNewsletter(e) {
+  e.preventDefault();
+  const msg = document.getElementById("newsletterMsg");
+  msg.style.opacity = "1";
+  e.target.reset();
+  setTimeout(() => msg.style.opacity = "0", 4000);
+}
+
+attachCursorTargets();
+</script>
+</body>
+</html>
