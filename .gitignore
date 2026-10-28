@@ -2,3 +2,7 @@
 Thumbs.db
 *.log
 .netlify
+
+# Working files (brand package drafts, old single-file site)
+kristagraham portfolio/
+kristagraham portfolio 2/
